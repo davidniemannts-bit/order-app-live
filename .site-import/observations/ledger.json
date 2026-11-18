@@ -1,0 +1,15 @@
+{
+  "route": "/",
+  "source": "https://orderapp-free.base44.app",
+  "scroll_container": "window (desktop scrollHeight 1800, phone 2864)",
+  "checks": [
+    {"control": "Header 'Anmelden' link", "viewports": ["desktop","phone"], "expected": "/login on own origin", "observed": "http://localhost:8080/login (page not imported)", "status": "pass", "screenshots": ["source_desktop_anmelden.png"]},
+    {"control": "Hero CTA 'Kostenlos starten'", "viewports": ["desktop","phone"], "expected": "/login", "observed": "http://localhost:8080/login", "status": "pass"},
+    {"control": "Steps CTA 'Kostenlos starten'", "viewports": ["desktop","phone"], "expected": "/login", "observed": "href=/login", "status": "pass"},
+    {"control": "Base44 badge close", "viewports": ["desktop","phone"], "expected": "badge hides", "observed": "badge hides (repaired)", "status": "pass"},
+    {"control": "Phone navigation menu", "viewports": ["phone"], "expected": "none in source", "observed": "none – header shows logo + Anmelden", "status": "n/a"},
+    {"control": "Sections (hero, four ways, steps, footer)", "viewports": ["desktop","phone"], "expected": "visible with matching layout", "observed": "visually identical", "status": "pass", "screenshots": ["source_desktop_top.png","preview_desktop_top.png","source_phone_top.png","preview_phone_top.png","source_phone_bottom.png","preview_phone_bottom.png"]}
+  ],
+  "media": "No video/canvas; 12/12 assets downloaded",
+  "not_imported": ["/login (sign-in form backed by the source app's accounts)"]
+}
