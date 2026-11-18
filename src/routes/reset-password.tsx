@@ -30,11 +30,11 @@ function ResetPassword() {
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (password.length < 8) return toast.error("Das Passwort braucht mindestens 8 Zeichen.");
+    if (password.length < 8) { toast.error("Das Passwort braucht mindestens 8 Zeichen."); return; }
     setBusy(true);
     const { error } = await supabase.auth.updateUser({ password });
     setBusy(false);
-    if (error) return toast.error("Der Link ist abgelaufen. Bitte fordere einen neuen an.");
+    if (error) { toast.error("Der Link ist abgelaufen. Bitte fordere einen neuen an."); return; }
     toast.success("Passwort gespeichert");
     navigate({ to: "/dashboard", replace: true });
   }

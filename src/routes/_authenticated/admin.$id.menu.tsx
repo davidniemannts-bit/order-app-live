@@ -34,7 +34,7 @@ function MenuPage() {
     if (!name) return;
     const position = (data?.categories.length ?? 0) + 1;
     const { error } = await supabase.from("menu_categories").insert({ restaurant_id: id, name, position });
-    if (error) return toast.error(errorMessage(error));
+    if (error) { toast.error(errorMessage(error)); return; }
     setNewCat("");
     refresh();
   }
@@ -43,27 +43,27 @@ function MenuPage() {
     const name = window.prompt("Neuer Name der Kategorie", current)?.trim();
     if (!name || name === current) return;
     const { error } = await supabase.from("menu_categories").update({ name }).eq("id", catId);
-    if (error) return toast.error(errorMessage(error));
+    if (error) { toast.error(errorMessage(error)); return; }
     refresh();
   }
 
   async function deleteCategory(catId: string, name: string) {
     if (!window.confirm(`Kategorie „${name}" mit allen Gerichten löschen?`)) return;
     const { error } = await supabase.from("menu_categories").delete().eq("id", catId);
-    if (error) return toast.error(errorMessage(error));
+    if (error) { toast.error(errorMessage(error)); return; }
     refresh();
   }
 
   async function toggleSoldOut(item: Item) {
     const { error } = await supabase.from("menu_items").update({ sold_out: !item.sold_out }).eq("id", item.id);
-    if (error) return toast.error(errorMessage(error));
+    if (error) { toast.error(errorMessage(error)); return; }
     refresh();
   }
 
   async function deleteItem(item: Item) {
     if (!window.confirm(`„${item.name}" löschen?`)) return;
     const { error } = await supabase.from("menu_items").delete().eq("id", item.id);
-    if (error) return toast.error(errorMessage(error));
+    if (error) { toast.error(errorMessage(error)); return; }
     refresh();
   }
 
@@ -167,15 +167,15 @@ function ItemForm({ restaurantId, state, position, onSaved }: { restaurantId: st
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     const p = Number(price.replace(",", "."));
-    if (!name.trim()) return toast.error("Bitte einen Namen eingeben.");
-    if (!Number.isFinite(p) || p < 0) return toast.error("Bitte einen gültigen Preis eingeben.");
+    if (!name.trim()) { toast.error("Bitte einen Namen eingeben."); return; }
+    if (!Number.isFinite(p) || p < 0) { toast.error("Bitte einen gültigen Preis eingeben."); return; }
     setBusy(true);
     const payload = { name: name.trim(), description: description.trim() || null, price: Math.round(p * 100) / 100 };
     const { error } = state.item
       ? await supabase.from("menu_items").update(payload).eq("id", state.item.id)
       : await supabase.from("menu_items").insert({ ...payload, restaurant_id: restaurantId, category_id: state.categoryId, position });
     setBusy(false);
-    if (error) return toast.error(errorMessage(error));
+    if (error) { toast.error(errorMessage(error)); return; }
     toast.success("Gespeichert");
     onSaved();
   }

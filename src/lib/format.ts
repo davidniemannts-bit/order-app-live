@@ -24,7 +24,7 @@ export const SLUG_PATTERN = /^[a-z0-9](?:[a-z0-9-]{1,38})[a-z0-9]$/;
 export function readableOn(hex: string): string {
   const m = /^#?([0-9a-f]{6})$/i.exec(hex);
   if (!m) return "#ffffff";
-  const n = parseInt(m[1], 16);
+  const n = parseInt(m[1] ?? "", 16);
   const r = (n >> 16) & 255;
   const g = (n >> 8) & 255;
   const b = n & 255;
