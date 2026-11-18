@@ -17,8 +17,10 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAdminIdRouteImport } from './routes/_authenticated/admin.$id'
 import { Route as AuthenticatedAdminIdIndexRouteImport } from './routes/_authenticated/admin.$id.index'
 import { Route as AuthenticatedAdminIdDesignRouteImport } from './routes/_authenticated/admin.$id.design'
+import { Route as AuthenticatedAdminIdKasseRouteImport } from './routes/_authenticated/admin.$id.kasse'
 import { Route as AuthenticatedAdminIdMenuRouteImport } from './routes/_authenticated/admin.$id.menu'
 import { Route as AuthenticatedAdminIdPagesRouteImport } from './routes/_authenticated/admin.$id.pages'
+import { Route as AuthenticatedAdminIdSettingsRouteImport } from './routes/_authenticated/admin.$id.settings'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -61,6 +63,12 @@ const AuthenticatedAdminIdDesignRoute =
     path: '/design',
     getParentRoute: () => AuthenticatedAdminIdRoute,
   } as any)
+const AuthenticatedAdminIdKasseRoute =
+  AuthenticatedAdminIdKasseRouteImport.update({
+    id: '/kasse',
+    path: '/kasse',
+    getParentRoute: () => AuthenticatedAdminIdRoute,
+  } as any)
 const AuthenticatedAdminIdMenuRoute =
   AuthenticatedAdminIdMenuRouteImport.update({
     id: '/menu',
@@ -73,6 +81,12 @@ const AuthenticatedAdminIdPagesRoute =
     path: '/pages',
     getParentRoute: () => AuthenticatedAdminIdRoute,
   } as any)
+const AuthenticatedAdminIdSettingsRoute =
+  AuthenticatedAdminIdSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedAdminIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -81,8 +95,10 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/admin/$id': typeof AuthenticatedAdminIdRouteWithChildren
   '/admin/$id/design': typeof AuthenticatedAdminIdDesignRoute
+  '/admin/$id/kasse': typeof AuthenticatedAdminIdKasseRoute
   '/admin/$id/menu': typeof AuthenticatedAdminIdMenuRoute
   '/admin/$id/pages': typeof AuthenticatedAdminIdPagesRoute
+  '/admin/$id/settings': typeof AuthenticatedAdminIdSettingsRoute
   '/admin/$id/': typeof AuthenticatedAdminIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -91,8 +107,10 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/admin/$id/design': typeof AuthenticatedAdminIdDesignRoute
+  '/admin/$id/kasse': typeof AuthenticatedAdminIdKasseRoute
   '/admin/$id/menu': typeof AuthenticatedAdminIdMenuRoute
   '/admin/$id/pages': typeof AuthenticatedAdminIdPagesRoute
+  '/admin/$id/settings': typeof AuthenticatedAdminIdSettingsRoute
   '/admin/$id': typeof AuthenticatedAdminIdIndexRoute
 }
 export interface FileRoutesById {
@@ -104,8 +122,10 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRouteWithChildren
   '/_authenticated/admin/$id/design': typeof AuthenticatedAdminIdDesignRoute
+  '/_authenticated/admin/$id/kasse': typeof AuthenticatedAdminIdKasseRoute
   '/_authenticated/admin/$id/menu': typeof AuthenticatedAdminIdMenuRoute
   '/_authenticated/admin/$id/pages': typeof AuthenticatedAdminIdPagesRoute
+  '/_authenticated/admin/$id/settings': typeof AuthenticatedAdminIdSettingsRoute
   '/_authenticated/admin/$id/': typeof AuthenticatedAdminIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -117,8 +137,10 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/admin/$id'
     | '/admin/$id/design'
+    | '/admin/$id/kasse'
     | '/admin/$id/menu'
     | '/admin/$id/pages'
+    | '/admin/$id/settings'
     | '/admin/$id/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -127,8 +149,10 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/dashboard'
     | '/admin/$id/design'
+    | '/admin/$id/kasse'
     | '/admin/$id/menu'
     | '/admin/$id/pages'
+    | '/admin/$id/settings'
     | '/admin/$id'
   id:
     | '__root__'
@@ -139,8 +163,10 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/admin/$id'
     | '/_authenticated/admin/$id/design'
+    | '/_authenticated/admin/$id/kasse'
     | '/_authenticated/admin/$id/menu'
     | '/_authenticated/admin/$id/pages'
+    | '/_authenticated/admin/$id/settings'
     | '/_authenticated/admin/$id/'
   fileRoutesById: FileRoutesById
 }
@@ -209,6 +235,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIdDesignRouteImport
       parentRoute: typeof AuthenticatedAdminIdRoute
     }
+    '/_authenticated/admin/$id/kasse': {
+      id: '/_authenticated/admin/$id/kasse'
+      path: '/kasse'
+      fullPath: '/admin/$id/kasse'
+      preLoaderRoute: typeof AuthenticatedAdminIdKasseRouteImport
+      parentRoute: typeof AuthenticatedAdminIdRoute
+    }
     '/_authenticated/admin/$id/menu': {
       id: '/_authenticated/admin/$id/menu'
       path: '/menu'
@@ -223,20 +256,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIdPagesRouteImport
       parentRoute: typeof AuthenticatedAdminIdRoute
     }
+    '/_authenticated/admin/$id/settings': {
+      id: '/_authenticated/admin/$id/settings'
+      path: '/settings'
+      fullPath: '/admin/$id/settings'
+      preLoaderRoute: typeof AuthenticatedAdminIdSettingsRouteImport
+      parentRoute: typeof AuthenticatedAdminIdRoute
+    }
   }
 }
 
 interface AuthenticatedAdminIdRouteChildren {
   AuthenticatedAdminIdDesignRoute: typeof AuthenticatedAdminIdDesignRoute
+  AuthenticatedAdminIdKasseRoute: typeof AuthenticatedAdminIdKasseRoute
   AuthenticatedAdminIdMenuRoute: typeof AuthenticatedAdminIdMenuRoute
   AuthenticatedAdminIdPagesRoute: typeof AuthenticatedAdminIdPagesRoute
+  AuthenticatedAdminIdSettingsRoute: typeof AuthenticatedAdminIdSettingsRoute
   AuthenticatedAdminIdIndexRoute: typeof AuthenticatedAdminIdIndexRoute
 }
 
 const AuthenticatedAdminIdRouteChildren: AuthenticatedAdminIdRouteChildren = {
   AuthenticatedAdminIdDesignRoute: AuthenticatedAdminIdDesignRoute,
+  AuthenticatedAdminIdKasseRoute: AuthenticatedAdminIdKasseRoute,
   AuthenticatedAdminIdMenuRoute: AuthenticatedAdminIdMenuRoute,
   AuthenticatedAdminIdPagesRoute: AuthenticatedAdminIdPagesRoute,
+  AuthenticatedAdminIdSettingsRoute: AuthenticatedAdminIdSettingsRoute,
   AuthenticatedAdminIdIndexRoute: AuthenticatedAdminIdIndexRoute,
 }
 
