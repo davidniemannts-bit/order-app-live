@@ -15,6 +15,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedAdminIdRouteImport } from './routes/_authenticated/admin.$id'
+import { Route as AuthenticatedAdminIdIndexRouteImport } from './routes/_authenticated/admin.$id.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -45,20 +46,27 @@ const AuthenticatedAdminIdRoute = AuthenticatedAdminIdRouteImport.update({
   path: '/admin/$id',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminIdIndexRoute =
+  AuthenticatedAdminIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/reset-password': typeof ResetPasswordRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/admin/$id': typeof AuthenticatedAdminIdRouteWithChildren
+  '/admin/$id/': typeof AuthenticatedAdminIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/reset-password': typeof ResetPasswordRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/admin/$id': typeof AuthenticatedAdminIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -67,11 +75,18 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
-  '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRouteWithChildren
+  '/_authenticated/admin/$id/': typeof AuthenticatedAdminIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/reset-password' | '/dashboard' | '/admin/$id'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/reset-password'
+    | '/dashboard'
+    | '/admin/$id'
+    | '/admin/$id/'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/login' | '/reset-password' | '/dashboard' | '/admin/$id'
   id:
@@ -82,6 +97,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/_authenticated/dashboard'
     | '/_authenticated/admin/$id'
+    | '/_authenticated/admin/$id/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -135,17 +151,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/$id/': {
+      id: '/_authenticated/admin/$id/'
+      path: '/'
+      fullPath: '/admin/$id/'
+      preLoaderRoute: typeof AuthenticatedAdminIdIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminIdRoute
+    }
   }
 }
 
+interface AuthenticatedAdminIdRouteChildren {
+  AuthenticatedAdminIdIndexRoute: typeof AuthenticatedAdminIdIndexRoute
+}
+
+const AuthenticatedAdminIdRouteChildren: AuthenticatedAdminIdRouteChildren = {
+  AuthenticatedAdminIdIndexRoute: AuthenticatedAdminIdIndexRoute,
+}
+
+const AuthenticatedAdminIdRouteWithChildren =
+  AuthenticatedAdminIdRoute._addFileChildren(AuthenticatedAdminIdRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
-  AuthenticatedAdminIdRoute: typeof AuthenticatedAdminIdRoute
+  AuthenticatedAdminIdRoute: typeof AuthenticatedAdminIdRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
-  AuthenticatedAdminIdRoute: AuthenticatedAdminIdRoute,
+  AuthenticatedAdminIdRoute: AuthenticatedAdminIdRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
