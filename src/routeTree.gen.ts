@@ -16,7 +16,9 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedAdminIdRouteImport } from './routes/_authenticated/admin.$id'
 import { Route as AuthenticatedAdminIdIndexRouteImport } from './routes/_authenticated/admin.$id.index'
+import { Route as AuthenticatedAdminIdDesignRouteImport } from './routes/_authenticated/admin.$id.design'
 import { Route as AuthenticatedAdminIdMenuRouteImport } from './routes/_authenticated/admin.$id.menu'
+import { Route as AuthenticatedAdminIdPagesRouteImport } from './routes/_authenticated/admin.$id.pages'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -53,10 +55,22 @@ const AuthenticatedAdminIdIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedAdminIdRoute,
   } as any)
+const AuthenticatedAdminIdDesignRoute =
+  AuthenticatedAdminIdDesignRouteImport.update({
+    id: '/design',
+    path: '/design',
+    getParentRoute: () => AuthenticatedAdminIdRoute,
+  } as any)
 const AuthenticatedAdminIdMenuRoute =
   AuthenticatedAdminIdMenuRouteImport.update({
     id: '/menu',
     path: '/menu',
+    getParentRoute: () => AuthenticatedAdminIdRoute,
+  } as any)
+const AuthenticatedAdminIdPagesRoute =
+  AuthenticatedAdminIdPagesRouteImport.update({
+    id: '/pages',
+    path: '/pages',
     getParentRoute: () => AuthenticatedAdminIdRoute,
   } as any)
 
@@ -66,7 +80,9 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/admin/$id': typeof AuthenticatedAdminIdRouteWithChildren
+  '/admin/$id/design': typeof AuthenticatedAdminIdDesignRoute
   '/admin/$id/menu': typeof AuthenticatedAdminIdMenuRoute
+  '/admin/$id/pages': typeof AuthenticatedAdminIdPagesRoute
   '/admin/$id/': typeof AuthenticatedAdminIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -74,7 +90,9 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/reset-password': typeof ResetPasswordRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/admin/$id/design': typeof AuthenticatedAdminIdDesignRoute
   '/admin/$id/menu': typeof AuthenticatedAdminIdMenuRoute
+  '/admin/$id/pages': typeof AuthenticatedAdminIdPagesRoute
   '/admin/$id': typeof AuthenticatedAdminIdIndexRoute
 }
 export interface FileRoutesById {
@@ -85,7 +103,9 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRouteWithChildren
+  '/_authenticated/admin/$id/design': typeof AuthenticatedAdminIdDesignRoute
   '/_authenticated/admin/$id/menu': typeof AuthenticatedAdminIdMenuRoute
+  '/_authenticated/admin/$id/pages': typeof AuthenticatedAdminIdPagesRoute
   '/_authenticated/admin/$id/': typeof AuthenticatedAdminIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -96,7 +116,9 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/dashboard'
     | '/admin/$id'
+    | '/admin/$id/design'
     | '/admin/$id/menu'
+    | '/admin/$id/pages'
     | '/admin/$id/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -104,7 +126,9 @@ export interface FileRouteTypes {
     | '/login'
     | '/reset-password'
     | '/dashboard'
+    | '/admin/$id/design'
     | '/admin/$id/menu'
+    | '/admin/$id/pages'
     | '/admin/$id'
   id:
     | '__root__'
@@ -114,7 +138,9 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/_authenticated/dashboard'
     | '/_authenticated/admin/$id'
+    | '/_authenticated/admin/$id/design'
     | '/_authenticated/admin/$id/menu'
+    | '/_authenticated/admin/$id/pages'
     | '/_authenticated/admin/$id/'
   fileRoutesById: FileRoutesById
 }
@@ -176,6 +202,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIdIndexRouteImport
       parentRoute: typeof AuthenticatedAdminIdRoute
     }
+    '/_authenticated/admin/$id/design': {
+      id: '/_authenticated/admin/$id/design'
+      path: '/design'
+      fullPath: '/admin/$id/design'
+      preLoaderRoute: typeof AuthenticatedAdminIdDesignRouteImport
+      parentRoute: typeof AuthenticatedAdminIdRoute
+    }
     '/_authenticated/admin/$id/menu': {
       id: '/_authenticated/admin/$id/menu'
       path: '/menu'
@@ -183,16 +216,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIdMenuRouteImport
       parentRoute: typeof AuthenticatedAdminIdRoute
     }
+    '/_authenticated/admin/$id/pages': {
+      id: '/_authenticated/admin/$id/pages'
+      path: '/pages'
+      fullPath: '/admin/$id/pages'
+      preLoaderRoute: typeof AuthenticatedAdminIdPagesRouteImport
+      parentRoute: typeof AuthenticatedAdminIdRoute
+    }
   }
 }
 
 interface AuthenticatedAdminIdRouteChildren {
+  AuthenticatedAdminIdDesignRoute: typeof AuthenticatedAdminIdDesignRoute
   AuthenticatedAdminIdMenuRoute: typeof AuthenticatedAdminIdMenuRoute
+  AuthenticatedAdminIdPagesRoute: typeof AuthenticatedAdminIdPagesRoute
   AuthenticatedAdminIdIndexRoute: typeof AuthenticatedAdminIdIndexRoute
 }
 
 const AuthenticatedAdminIdRouteChildren: AuthenticatedAdminIdRouteChildren = {
+  AuthenticatedAdminIdDesignRoute: AuthenticatedAdminIdDesignRoute,
   AuthenticatedAdminIdMenuRoute: AuthenticatedAdminIdMenuRoute,
+  AuthenticatedAdminIdPagesRoute: AuthenticatedAdminIdPagesRoute,
   AuthenticatedAdminIdIndexRoute: AuthenticatedAdminIdIndexRoute,
 }
 
