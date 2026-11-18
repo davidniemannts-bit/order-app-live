@@ -29,20 +29,20 @@ describe("Basic vs Pro", () => {
 });
 
 describe("Pro code", () => {
-  const code = "09730973David!";
+  const code = "Muster1234Code!";
   it("accepts the exact code including the exclamation mark", () => {
-    expect(checkProCode("09730973David!", code)).toBe(true);
+    expect(checkProCode("Muster1234Code!", code)).toBe(true);
   });
   it("ignores surrounding spaces", () => {
-    expect(checkProCode("  09730973David!  ", code)).toBe(true);
+    expect(checkProCode("  Muster1234Code!  ", code)).toBe(true);
   });
   it("rejects the code without the exclamation mark", () => {
-    expect(checkProCode("09730973David", code)).toBe(false);
+    expect(checkProCode("Muster1234Code", code)).toBe(false);
   });
   it("is case sensitive", () => {
-    expect(checkProCode("09730973david!", code)).toBe(false);
+    expect(checkProCode("muster1234code!", code)).toBe(false);
   });
   it("rejects everything when no code is configured", () => {
-    expect(checkProCode("09730973David!", undefined)).toBe(false);
+    expect(checkProCode("Muster1234Code!", undefined)).toBe(false);
   });
 });
