@@ -22,7 +22,9 @@ export const Route = createFileRoute("/_authenticated/admin/$id")({
   component: AdminLayout,
 });
 
-const NAV: { to: string; label: string; icon: typeof ClipboardList; feature: Feature; exact?: boolean }[] = [
+type AdminPath = "/admin/$id" | "/admin/$id/kasse" | "/admin/$id/menu" | "/admin/$id/design" | "/admin/$id/pages" | "/admin/$id/settings";
+
+const NAV: { to: AdminPath; label: string; icon: typeof ClipboardList; feature: Feature; exact?: boolean }[] = [
   { to: "/admin/$id", label: "Bestellungen", icon: ClipboardList, feature: "orders", exact: true },
   { to: "/admin/$id/kasse", label: "Kasse", icon: HandPlatter, feature: "staff" },
   { to: "/admin/$id/menu", label: "Speisekarte", icon: UtensilsCrossed, feature: "menu" },
