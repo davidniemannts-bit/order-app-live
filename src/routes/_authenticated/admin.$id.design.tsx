@@ -13,6 +13,9 @@ import { ProLock } from "@/components/app/ProLock";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import type { Database } from "@/integrations/supabase/types";
+
+type RestaurantUpdate = Database["public"]["Tables"]["restaurants"]["Update"];
 
 export const Route = createFileRoute("/_authenticated/admin/$id/design")({
   component: DesignPage,
@@ -50,7 +53,7 @@ function DesignPage() {
 
   if (!restaurant) return null;
 
-  async function save(patch: Record<string, string | null>, label: string) {
+  async function save(patch: RestaurantUpdate, label: string) {
     setBusy(label);
     const { error } = await supabase.from("restaurants").update(patch).eq("id", id);
     setBusy(null);

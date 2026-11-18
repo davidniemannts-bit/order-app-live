@@ -51,16 +51,16 @@ function SettingsPage() {
     const f = Number(fee.replace(",", "."));
     const m = Number(minOrder.replace(",", "."));
     const t = Math.round(Number(tables));
-    if (![f, m].every((n) => Number.isFinite(n) && n >= 0)) return toast.error("Bitte gültige Beträge eingeben.");
-    if (!Number.isFinite(t) || t < 1 || t > 200) return toast.error("Anzahl Tische: 1 bis 200.");
-    if (name.trim().length < 2) return toast.error("Der Name ist zu kurz.");
+    if (![f, m].every((n) => Number.isFinite(n) && n >= 0)) { toast.error("Bitte gültige Beträge eingeben."); return; }
+    if (!Number.isFinite(t) || t < 1 || t > 200) { toast.error("Anzahl Tische: 1 bis 200."); return; }
+    if (name.trim().length < 2) { toast.error("Der Name ist zu kurz."); return; }
     setBusy(true);
     const { error } = await supabase
       .from("restaurants")
       .update({ name: name.trim(), table_enabled: table, pickup_enabled: pickup, delivery_enabled: delivery, delivery_fee: f, min_order: m, table_count: t })
       .eq("id", id);
     setBusy(false);
-    if (error) return toast.error(errorMessage(error));
+    if (error) { toast.error(errorMessage(error)); return; }
     await qc.invalidateQueries({ queryKey: ["restaurant", id] });
     qc.invalidateQueries({ queryKey: ["my-restaurants"] });
     toast.success("Einstellungen gespeichert");
@@ -82,7 +82,7 @@ function SettingsPage() {
   async function deleteRestaurant() {
     if (window.prompt(`Zum Löschen den Namen „${restaurant!.name}" eingeben`) !== restaurant!.name) return;
     const { error } = await supabase.from("restaurants").delete().eq("id", id);
-    if (error) return toast.error(errorMessage(error));
+    if (error) { toast.error(errorMessage(error)); return; }
     await qc.invalidateQueries({ queryKey: ["my-restaurants"] });
     toast.success("Restaurant gelöscht");
     navigate({ to: "/dashboard" });

@@ -17,9 +17,9 @@ function safeRedirect(value: unknown): string {
 }
 
 export const Route = createFileRoute("/login")({
-  validateSearch: (search: Record<string, unknown>): { redirect?: string; mode?: "signup" } => ({
-    redirect: typeof search.redirect === "string" ? search.redirect : undefined,
-    mode: search.mode === "signup" ? "signup" : undefined,
+  validateSearch: (search: Record<string, unknown>): { redirect?: string | undefined; mode?: "signup" | undefined } => ({
+    redirect: typeof search["redirect"] === "string" ? search["redirect"] : undefined,
+    mode: search["mode"] === "signup" ? "signup" : undefined,
   }),
   head: () => ({
     meta: [

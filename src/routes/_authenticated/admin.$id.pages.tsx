@@ -12,6 +12,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import type { Database } from "@/integrations/supabase/types";
+
+type RestaurantUpdate = Database["public"]["Tables"]["restaurants"]["Update"];
 
 export const Route = createFileRoute("/_authenticated/admin/$id/pages")({
   component: PagesPage,
@@ -44,10 +47,10 @@ function PagesPage() {
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setBusy(true);
-    const patch = Object.fromEntries(FIELDS.map((k) => [k, values[k].trim() || null]));
+    const patch = Object.fromEntries(FIELDS.map((k) => [k, values[k].trim() || null])) as RestaurantUpdate;
     const { error } = await supabase.from("restaurants").update(patch).eq("id", id);
     setBusy(false);
-    if (error) return toast.error(errorMessage(error));
+    if (error) { toast.error(errorMessage(error)); return; }
     await qc.invalidateQueries({ queryKey: ["restaurant", id] });
     toast.success("Seite gespeichert");
   }

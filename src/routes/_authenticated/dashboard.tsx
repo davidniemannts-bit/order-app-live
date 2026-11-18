@@ -98,7 +98,7 @@ function Dashboard() {
   );
 }
 
-function CreateRestaurant({ onCancel }: { onCancel?: () => void }) {
+function CreateRestaurant({ onCancel }: { onCancel?: (() => void) | undefined }) {
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
   const [slugTouched, setSlugTouched] = useState(false);
@@ -113,8 +113,8 @@ function CreateRestaurant({ onCancel }: { onCancel?: () => void }) {
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!slugValid) return toast.error("Bitte eine gültige Web-Adresse wählen (mind. 3 Zeichen, a–z, 0–9, -).");
-    if (plan === "pro" && !code.trim()) return toast.error("Bitte gib deinen Pro-Code ein.");
+    if (!slugValid) { toast.error("Bitte eine gültige Web-Adresse wählen (mind. 3 Zeichen, a–z, 0–9, -)."); return; }
+    if (plan === "pro" && !code.trim()) { toast.error("Bitte gib deinen Pro-Code ein."); return; }
     setBusy(true);
     try {
       const res = await create({ data: { name, slug: effectiveSlug, plan, code: plan === "pro" ? code : undefined } });
