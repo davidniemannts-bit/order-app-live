@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  staticData: { importedDocument: { html: { "lang": "en" }, body: { "data-react-root": "true" } } },
+  staticData: { sitemap: true, importedDocument: { html: { "lang": "en" }, body: { "data-react-root": "true" } } },
   component: Index,
 });
 
@@ -41,7 +41,7 @@ function Index() {
               <p className={"mt-1 \x74ext-sm text-ink-muted"}>Live mit Ton, Status für Gäste in Echtzeit.</p>
             </div>
             <div className="[@media(width_>=_1024px)]:[grid-column:span_3/span_3]">
-              <a className={"inline-flex h-12 items-center gap-2 rounded-xl \x62g-gradient-primary \x70x-6 \x74ext-base \x66ont-semibold text-primary-foreground \x73hadow-glow transition-all \x68over:\x62rightness-110 \x61ctive:\x73cale-[\x30.\x398] [&]:justify-center [text-decoration:inherit] [&:hover]:[filter:var(--tw-blur)_var(--tw-brightness)_var(--tw-contrast)_var(--tw-grayscale)_var(--tw-hue-rotate)_var(--tw-invert)_var(--tw-saturate)_var(--tw-sepia)_var(--tw-drop-shadow)]"} href="/login">Kostenlos starten{" "}<svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
+              <a className={"inline-flex h-12 items-center gap-2 rounded-xl \x62g-gradient-primary \x70x-6 \x74ext-base \x66ont-semibold text-primary-foreground \x73hadow-glow transition-all \x68over:\x62rightness-110 \x61ctive:\x73cale-[\x30.\x398] [&]:justify-center [text-decoration:inherit] [&:hover]:[filter:var(--tw-blur)_var(--tw-brightness)_var(--tw-contrast)_var(--tw-grayscale)_var(--tw-hue-rotate)_var(--tw-invert)_var(--tw-saturate)_var(--tw-sepia)_var(--tw-drop-shadow)]"} href="/login?mode=signup">Kostenlos starten{" "}<svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
             </div>
           </div>
         </section>
@@ -82,7 +82,7 @@ function ImportedSectionBestellungenOhneUmwege() {
           <h1 className={"mt-6 \x74ext-5xl \x66ont-black \x6ceading-[\x31.\x302] \x73m:\x74ext-6xl \x6cg:\x74ext-7xl [letter-spacing:-0.025em]"}>Bestellungen.<br /><span className="text-primary-glow">Ohne Umwege.</span></h1>
           <p className={"mt-6 \x74ext-lg text-ink-muted [max-width:32rem]"}>Dein eigenes Bestellsystem mit Speisekarten­verwaltung: am Tisch, zur Abholung, als Lieferung oder durchs Personal – alles live in einer Übersicht.</p>
           <div className={"mt-8 flex items-center gap-4 [&]:flex-wrap"}>
-            <a className={"inline-flex h-12 items-center gap-2 rounded-xl \x62g-gradient-primary \x70x-6 \x74ext-base \x66ont-semibold text-primary-foreground \x73hadow-glow transition-all \x68over:\x62rightness-110 \x61ctive:\x73cale-[\x30.\x398] [&]:justify-center [text-decoration:inherit] [&:hover]:[filter:var(--tw-blur)_var(--tw-brightness)_var(--tw-contrast)_var(--tw-grayscale)_var(--tw-hue-rotate)_var(--tw-invert)_var(--tw-saturate)_var(--tw-sepia)_var(--tw-drop-shadow)]"} href="/login">Kostenlos starten{" "}<svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
+            <a className={"inline-flex h-12 items-center gap-2 rounded-xl \x62g-gradient-primary \x70x-6 \x74ext-base \x66ont-semibold text-primary-foreground \x73hadow-glow transition-all \x68over:\x62rightness-110 \x61ctive:\x73cale-[\x30.\x398] [&]:justify-center [text-decoration:inherit] [&:hover]:[filter:var(--tw-blur)_var(--tw-brightness)_var(--tw-contrast)_var(--tw-grayscale)_var(--tw-hue-rotate)_var(--tw-invert)_var(--tw-saturate)_var(--tw-sepia)_var(--tw-drop-shadow)]"} href="/login?mode=signup">Kostenlos starten{" "}<svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
             <span className={"\x74ext-sm text-ink-muted"}>In 2 Minuten online</span>
           </div>
         </div>
