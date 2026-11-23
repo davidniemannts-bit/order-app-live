@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/_authenticated/admin/$id/kasse")({
+  staticData: { sitemap: false },
   component: KassePage,
 });
 

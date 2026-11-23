@@ -18,6 +18,7 @@ import type { Database } from "@/integrations/supabase/types";
 type RestaurantUpdate = Database["public"]["Tables"]["restaurants"]["Update"];
 
 export const Route = createFileRoute("/_authenticated/admin/$id/design")({
+  staticData: { sitemap: false },
   component: DesignPage,
 });
 
