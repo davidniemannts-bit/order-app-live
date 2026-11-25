@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 export const Route = createFileRoute("/r/$slug")({
-  staticData: { sitemap: false },
+  staticData: { sitemap: false, importedDocument: { html: { lang: "de" } } },
   loader: async ({ params }) => getPublicRestaurant({ data: { slug: params.slug } }),
   head: ({ loaderData }) => ({
     meta: [
