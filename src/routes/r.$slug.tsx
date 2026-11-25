@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Bike, CheckCircle2, Clock3, Loader2, MapPin, Minus, Plus, ShoppingBag, Store, UtensilsCrossed } from "lucide-react";
@@ -42,7 +42,7 @@ function CustomerOrderPage() {
   const data = Route.useLoaderData();
   const restaurant = data?.restaurant;
   const [cart, setCart] = useState<Record<string, CartLine>>({});
-  const [orderType, setOrderType] = useState<OrderType>("pickup");
+  const [orderType, setOrderType] = useState<OrderType>(() => restaurant?.pickup_enabled ? "pickup" : restaurant?.delivery_enabled ? "delivery" : "table");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
@@ -51,7 +51,6 @@ function CustomerOrderPage() {
   const [busy, setBusy] = useState(false);
   const [orderId, setOrderId] = useState<string | null>(null);
   const [orderStatus, setOrderStatus] = useState<OrderStatus | null>(null);
-  const [statusLoading, setStatusLoading] = useState(false);
 
   const lines = Object.values(cart);
   const count = lines.reduce((sum, line) => sum + line.quantity, 0);
