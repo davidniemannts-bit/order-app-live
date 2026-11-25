@@ -8,18 +8,39 @@ export function useSession() {
 
   useEffect(() => {
     let active = true;
-    supabase.auth.getSession().then(({ data }) => {
-      if (!active) return;
-      setSession(data.session);
+    let unsubscribe: (() => void) | undefined;
+
+    try {
+      const client = supabase;
+      client.auth.getSession()
+        .then(({ data, error }) => {
+          if (error) throw error;
+          if (!active) return;
+          setSession(data.session);
+          setLoading(false);
+        })
+        .catch((error: unknown) => {
+          console.error("[Auth] Could not restore session:", error);
+          if (!active) return;
+          setSession(null);
+          setLoading(false);
+        });
+
+      const { data } = client.auth.onAuthStateChange((_event, nextSession) => {
+        if (!active) return;
+        setSession(nextSession);
+        setLoading(false);
+      });
+      unsubscribe = () => data.subscription.unsubscribe();
+    } catch (error) {
+      console.error("[Auth] Session initialization failed:", error);
+      setSession(null);
       setLoading(false);
-    });
-    const { data } = supabase.auth.onAuthStateChange((_event, s) => {
-      setSession(s);
-      setLoading(false);
-    });
+    }
+
     return () => {
       active = false;
-      data.subscription.unsubscribe();
+      unsubscribe?.();
     };
   }, []);
 
