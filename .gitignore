@@ -30,3 +30,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local environment files (use Lovable Secrets / local-only env files)
+.env
+.env.*
+!.env.example
