@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useSession } from "@/hooks/use-session";
+import type { Session } from "@supabase/supabase-js";
 import capturedCSS from "../styles/site.css?raw";
 
 export const Route = createFileRoute("/")({
@@ -26,7 +27,7 @@ function Index() {
     <>
       <style>{capturedCSS}</style>
       <div className="[min-height:100vh]">
-        <ImportedSectionBestellungenOhneUmwege />
+        <ImportedSectionBestellungenOhneUmwege session={session} />
         <ImportedSectionVierWegeZurBestellung />
         <section className={"\x6dx-auto \x70x-5 pb-24 [max-width:72rem]"}>
           <div className={"grid gap-8 rounded-3xl \x62g-ink p-8 text-ink-foreground \x73m:\x70-12 [@media(width_>=_1024px)]:[grid-template-columns:repeat(3,minmax(0px,1fr))]"}>
@@ -67,8 +68,7 @@ function Index() {
   );
 }
 
-function ImportedSectionBestellungenOhneUmwege() {
-  const { session } = useSession();
+function ImportedSectionBestellungenOhneUmwege({ session }: { session: Session | null }) {
 
   return (
     <section className={"\x62g-gradient-ink text-ink-foreground"}>
