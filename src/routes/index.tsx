@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useSession } from "@/hooks/use-session";
 import capturedCSS from "../styles/site.css?raw";
 
 export const Route = createFileRoute("/")({
@@ -12,11 +13,15 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  staticData: { sitemap: true, importedDocument: { html: { "lang": "en" }, body: { "data-react-root": "true" } } },
+  staticData: { sitemap: true, importedDocument: { html: { "lang": "de" }, body: { "data-react-root": "true" } } },
   component: Index,
 });
 
 function Index() {
+  const { session } = useSession();
+  const primaryHref = session ? "/dashboard" : "/login?mode=signup";
+  const primaryLabel = session ? "Zum Dashboard" : "Kostenlos starten";
+
   return (
     <>
       <style>{capturedCSS}</style>
@@ -41,7 +46,7 @@ function Index() {
               <p className={"mt-1 \x74ext-sm text-ink-muted"}>Live mit Ton, Status für Gäste in Echtzeit.</p>
             </div>
             <div className="[@media(width_>=_1024px)]:[grid-column:span_3/span_3]">
-              <a className={"inline-flex h-12 items-center gap-2 rounded-xl \x62g-gradient-primary \x70x-6 \x74ext-base \x66ont-semibold text-primary-foreground \x73hadow-glow transition-all \x68over:\x62rightness-110 \x61ctive:\x73cale-[\x30.\x398] [&]:justify-center [text-decoration:inherit] [&:hover]:[filter:var(--tw-blur)_var(--tw-brightness)_var(--tw-contrast)_var(--tw-grayscale)_var(--tw-hue-rotate)_var(--tw-invert)_var(--tw-saturate)_var(--tw-sepia)_var(--tw-drop-shadow)]"} href="/login?mode=signup">Kostenlos starten{" "}<svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
+              <a className={"inline-flex h-12 items-center gap-2 rounded-xl \x62g-gradient-primary \x70x-6 \x74ext-base \x66ont-semibold text-primary-foreground \x73hadow-glow transition-all \x68over:\x62rightness-110 \x61ctive:\x73cale-[\x30.\x398] [&]:justify-center [text-decoration:inherit] [&:hover]:[filter:var(--tw-blur)_var(--tw-brightness)_var(--tw-contrast)_var(--tw-grayscale)_var(--tw-hue-rotate)_var(--tw-invert)_var(--tw-saturate)_var(--tw-sepia)_var(--tw-drop-shadow)]"} href={primaryHref}>{primaryLabel}{" "}<svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
             </div>
           </div>
         </section>
@@ -74,7 +79,7 @@ function ImportedSectionBestellungenOhneUmwege() {
           </span>
           <span className={"\x74ext-lg text-ink-foreground"}>OrderApp<span className="ml-1 text-primary">Free</span></span>
         </span>
-        <a className={"\x74ext-sm \x66ont-semibold text-ink-foreground \x68over:\x74ext-primary-glow [text-decoration:inherit]"} href="/login">Anmelden</a>
+        <a className={"\x74ext-sm \x66ont-semibold text-ink-foreground \x68over:\x74ext-primary-glow [text-decoration:inherit]"} href={session ? "/dashboard" : "/login"}>{session ? "Restaurant Manager" : "Anmelden"}</a>
       </header>
       <div className={"\x6dx-auto grid items-center gap-12 \x70x-5 pb-20 pt-10 \x6cg:\x70t-16 [max-width:72rem] [@media(width_>=_1024px)]:grid-cols-[1.1fr_1fr]"}>
         <div>
