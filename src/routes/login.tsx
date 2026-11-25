@@ -55,7 +55,7 @@ function LoginPage() {
     setBusy(true);
     try {
       if (mode === "signin") {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) {
           toast.error(
             error.message.includes("Email not confirmed")
@@ -64,6 +64,20 @@ function LoginPage() {
           );
           return;
         }
+
+        // Never navigate into protected routes until Supabase has actually
+        // returned and persisted an authenticated session.
+        if (!data.session?.user) {
+          toast.error("Die Anmeldung wurde nicht abgeschlossen. Bitte bestätige deine E-Mail-Adresse oder versuche es erneut.");
+          return;
+        }
+
+        const { data: restored, error: restoreError } = await supabase.auth.getSession();
+        if (restoreError || !restored.session?.user) {
+          toast.error("Deine Sitzung konnte nicht gespeichert werden. Bitte lade die Seite neu und melde dich erneut an.");
+          return;
+        }
+
         navigate({ to: target, replace: true });
       } else if (mode === "signup") {
         if (password.length < 8) {
