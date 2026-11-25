@@ -68,6 +68,8 @@ function Index() {
 }
 
 function ImportedSectionBestellungenOhneUmwege() {
+  const { session } = useSession();
+
   return (
     <section className={"\x62g-gradient-ink text-ink-foreground"}>
       <header className={"\x6dx-auto flex items-center \x70x-5 \x70y-5 [&]:justify-between [max-width:72rem]"}>
